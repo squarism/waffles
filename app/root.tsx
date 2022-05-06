@@ -1,5 +1,4 @@
 import type {
-  LinksFunction,
   LoaderFunction,
   MetaFunction,
 } from "@remix-run/node";
@@ -13,16 +12,13 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-import tailwindStylesheetUrl from "./styles/tailwind.css";
-import { getUser } from "./session.server";
+import { createStyles, MantineProvider } from "@mantine/core";
 
-export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
-};
+import { getUser } from "./session.server";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Remix Notes",
+  title: "Best Waffle",
   viewport: "width=device-width,initial-scale=1",
 });
 
@@ -36,6 +32,9 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 };
 
+
+
+
 export default function App() {
   return (
     <html lang="en" className="h-full">
@@ -43,12 +42,14 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="h-full">
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-      </body>
+      <MantineProvider withGlobalStyles withNormalizeCSS>
+        <body className="h-full">
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </body>
+      </MantineProvider>
     </html>
   );
 }
