@@ -4,6 +4,7 @@ import { createStyles } from "@mantine/core";
 import { useOptionalUser } from "~/utils";
 
 import { Header } from "~/components/Header";
+import { Waffle } from "~/components/Waffle";
 
 const useStyles = createStyles((theme) => ({
   main: {
