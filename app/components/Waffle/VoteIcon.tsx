@@ -1,12 +1,9 @@
 import { useState } from 'react'
 import { createStyles } from "@mantine/core"
-import { Group, Text } from '@mantine/core'
+import { Text } from '@mantine/core'
 import { ArrowBigTop, ArrowBigDown } from 'tabler-icons-react'
 
 const useStyles = createStyles(theme => ({
-  voteIcon: {
-    // backgroundColor: theme.colors.gray[2],
-  },
   clicked: {
     color: "gray",
     transform: "translateY(10%)",
