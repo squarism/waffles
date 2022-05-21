@@ -1,7 +1,8 @@
-import { createStyles, Grid, Header as MantineHeader, Title } from '@mantine/core'
+import { createStyles, Grid, Header as MantineHeader, MediaQuery, Title, Tooltip } from '@mantine/core'
 import { Link } from "@remix-run/react"
 import WaffleLogo from '../WaffleLogo'
 import type { User } from "~/services/session.server"
+import { UserCircle as UserIcon } from 'tabler-icons-react'
 
 const useStyles = createStyles((theme) => ({
   grid: {
@@ -18,6 +19,7 @@ const useStyles = createStyles((theme) => ({
   welcome: {
     color: "#333",
     fontSize: "14px",
+    fontWeight: "bold",
   },
   link: {
     fontSize: "15px",
@@ -42,7 +44,9 @@ interface HeaderProps {
 const ActionSpacer = () => {
   const { classes } = useStyles()
   return (
-    <span className={classes.actionSpacer}>|</span>
+    <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+      <span className={classes.actionSpacer}>|</span>
+    </MediaQuery>
   )
 }
 
@@ -51,17 +55,31 @@ export const Header = ({ user }: HeaderProps) => {
 
   return(
     <MantineHeader height={64}>
-      <Grid columns={3} className={classes.grid} justify="space-between">
-        <Grid.Col span={1} style={{ textAlign: "left" }}>
+      <Grid columns={7} className={classes.grid} justify="space-between">
+        <Grid.Col span={3} style={{ textAlign: "left" }}>
           <WaffleLogo width={32} height={32} />
-          <Title order={1} className={classes.h1}>Best Waffles</Title>
+          <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+            <Title order={1} className={classes.h1}>Best Waffles</Title>
+          </MediaQuery>
         </Grid.Col>
-        <Grid.Col span={2} style={{ textAlign: "right" }}>
+        <Grid.Col span={4} style={{ textAlign: "right" }}>
           {user ? (
             <>
-              <span className={classes.welcome}>
-                Welcome, <b>{user.email}</b>!
-              </span>
+              <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+                <span className={classes.welcome}>
+                  {user.email}
+                </span>
+              </MediaQuery>
+              <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+                <UserIcon style={{ position: 'relative', top: '7px', paddingLeft: '4px'}}/>
+              </MediaQuery>
+              <MediaQuery smallerThan="sm" styles={{ display: "inline !important" }}>
+                <div style={{ display: "none", position: 'relative', top: '7px', paddingRight: '8px' }}>
+                  <Tooltip position="bottom" placement="end" gutter={10} label={user.email}>
+                    <UserIcon />
+                  </Tooltip>
+                </div>
+              </MediaQuery>
               <ActionSpacer />
               <Link to="/logout" className={classes.link}>Log out</Link>
             </>

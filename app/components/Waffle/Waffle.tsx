@@ -1,5 +1,5 @@
 import { createStyles } from "@mantine/core";
-import { Image, Title, Group } from '@mantine/core';
+import { Card, Image, Title, Group } from '@mantine/core';
 
 import { VoteIcon } from "./VoteIcon";
 
@@ -21,7 +21,7 @@ export const Waffle = ({image, title}: WaffleProps) => {
   const { classes } = useStyles();
 
   return (
-    <div className={classes.waffle}>
+    <Card shadow="xs" p="sm">
       <Image
         src={image}
         alt="waffle"
@@ -39,6 +39,6 @@ export const Waffle = ({image, title}: WaffleProps) => {
           <VoteIcon direction="down" votes={0} />
         </span>
       </Group>
-    </div>
+    </Card>
   )
 }
