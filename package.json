@@ -36,6 +36,10 @@
     "/public/build"
   ],
   "dependencies": {
+    "@mantine/core": "^4.2.6",
+    "@mantine/form": "^4.2.6",
+    "@mantine/hooks": "^4.2.6",
+    "@mantine/ssr": "^4.2.6",
     "@prisma/client": "^3.11.1",
     "@remix-run/express": "^1.4.3",
     "@remix-run/node": "^1.4.3",
@@ -56,9 +60,6 @@
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@faker-js/faker": "^6.1.1",
-    "@mantine/core": "^4.2.2",
-    "@mantine/hooks": "^4.2.2",
-    "@mantine/ssr": "^4.2.2",
     "@remix-run/dev": "^1.4.3",
     "@remix-run/eslint-config": "^1.4.3",
     "@storybook/addon-actions": "^6.4.22",
