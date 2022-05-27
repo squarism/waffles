@@ -1,12 +1,18 @@
 import { createStyles, Container, Grid } from "@mantine/core"
+import type { LoaderFunction } from "@remix-run/node"
+import { useLoaderData } from "@remix-run/react"
 
 import { Header } from "~/components/Header"
 import { Waffle } from "~/components/Waffle"
 
-import authenticator from "~/services/auth.server";
-import { useLoaderData } from "@remix-run/react";
+import authenticator from "~/services/auth.server"
+import { getWaffles } from "~/models/waffle.server"
+import type { Waffle as WaffleType } from "~/models/waffle.server"
+import { voteTotals, userVotes } from "~/components/Waffle/helpers"
+import type { UserVotes } from "~/types/Voting"
 
-import type { LoaderFunction } from "@remix-run/node"
+// TODO: make a type so that
+// votes={waffle._count.votes} is not mad
 
 const useStyles = createStyles((theme) => ({
   main: {
@@ -28,30 +34,54 @@ const useStyles = createStyles((theme) => ({
   waffles: {
     marginTop: "5em",
   }
-}));
+}))
 
 export const loader: LoaderFunction = async ({ request }) => {
-  return await authenticator.isAuthenticated(request)
+  const user = await authenticator.isAuthenticated(request)
+  const waffles = await getWaffles()
+
+  const voteCounts = voteTotals(waffles)
+  let userVoted: UserVotes = []
+  if (user) userVoted = userVotes(user.id, waffles)
+  return { user, waffles, voteCounts, userVoted }
 }
 
 export default function Index() {
   const { classes } = useStyles()
-  const user = useLoaderData()
+  const { user, waffles, voteCounts, userVoted } = useLoaderData()
 
   return (
     <Container className={classes.main}>
       <Header user={user} />
 
+      {/* <pre>
+        {JSON.stringify(waffles, null, 2)}
+      </pre> */}
+
+      <pre>
+        total vote counts
+        {JSON.stringify(voteCounts, null, 2)}
+      </pre>
+
+      <pre>
+        user votes
+        {JSON.stringify(userVoted, null, 2)}
+      </pre>
+
       <Grid columns={3} className={classes.waffles}>
-        <Grid.Col sm={1} xs={3}>
-          <Waffle image="/chocolate.jpg" title="Chocolate" />
-        </Grid.Col>
-        <Grid.Col sm={1} xs={3}>
-          <Waffle image="/monte_cristo.jpg" title="Monte Cristo" />
-        </Grid.Col>
-        <Grid.Col sm={1} xs={3}>
-          <Waffle image="/strawberry.jpg" title="Strawberry" />
-        </Grid.Col>
+        {waffles.map((waffle: WaffleType) => (
+          <Grid.Col key={waffle.id} sm={1} xs={3}>
+            <Waffle
+              id={waffle.id}
+              image={`/${waffle.image}`}
+              title={waffle.name}
+              castVote={() => console.log("nothing")}
+              user={user}
+              votes={voteCounts.filter(e => e.id === waffle.id)[0].votes}
+              userVotes={userVoted}
+            />
+          </Grid.Col>
+        ))}
       </Grid>
 
     </Container>

@@ -3,6 +3,9 @@ import { Card, Image, Title, Group } from '@mantine/core';
 
 import { VoteIcon } from "./VoteIcon";
 
+import type { User } from "@prisma/client"
+import type { VotingFunction, UserVotes } from "~/types/Voting"
+
 const useStyles = createStyles(theme => ({
   waffle: {
     padding: "10px",
@@ -13,12 +16,18 @@ const useStyles = createStyles(theme => ({
 }));
 
 interface WaffleProps {
-  image: string;
-  title: string;
+  id: string
+  image: string
+  title: string
+  votes: number
+  castVote: VotingFunction
+  user: User | null
+  userVotes: UserVotes
 }
 
-export const Waffle = ({image, title}: WaffleProps) => {
+export const Waffle = ({id, image, title, castVote, user, votes, userVotes}: WaffleProps) => {
   const { classes } = useStyles();
+  const voted = userVotes.find(e => e.id === id)
 
   return (
     <Card shadow="xs" p="sm">
@@ -33,10 +42,26 @@ export const Waffle = ({image, title}: WaffleProps) => {
 
       <Group spacing="xs" noWrap position="center">
         <span style={{ borderRight: "2px solid #ccc", paddingRight: "10px" }}>
-          <VoteIcon direction="up" votes={42} />
+          <VoteIcon
+            waffleId={id}
+            direction="up"
+            votes={votes}
+            castVote={castVote}
+            user={user}
+            voted={voted?.vote == 1 || false}
+            otherWayVoted={voted?.vote == -1 || false}
+          />
         </span>
         <span>
-          <VoteIcon direction="down" votes={0} />
+          <VoteIcon
+            waffleId={id}
+            direction="down"
+            votes={0}
+            castVote={castVote}
+            user={user}
+            voted={voted?.vote == -1 || false}
+            otherWayVoted={voted?.vote == 1 || false}
+          />
         </span>
       </Group>
     </Card>
