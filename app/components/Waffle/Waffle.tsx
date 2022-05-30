@@ -1,32 +1,26 @@
-import { createStyles } from "@mantine/core";
-import { Card, Image, Text, Title, Group } from '@mantine/core';
+import { createStyles } from "@mantine/core"
+import { Card, Image, Text, Title, Group } from '@mantine/core'
 
-import { VoteIcon } from "./VoteIcon";
+import type { UserVotes } from "~/types/Voting"
 
-import type { User } from "@prisma/client"
-import type { VotingFunction, UserVotes } from "~/types/Voting"
+import { VoteIcon } from "./VoteIcon"
 
 const useStyles = createStyles(theme => ({
-  waffle: {
-    padding: "10px",
-    border: "1px solid #eee",
-    width: "100%",
-    objectFit: "cover",
+  votes: {
+    minWidth: "1rem",
   }
-}));
+}))
 
 interface WaffleProps {
   id: string
   image: string
   title: string
   votes: number
-  castVote: VotingFunction
-  user: User | null
   userVotes: UserVotes
 }
 
-export const Waffle = ({id, image, title, castVote, user, votes, userVotes}: WaffleProps) => {
-  const { classes } = useStyles();
+export const Waffle = ({id, image, title, votes, userVotes}: WaffleProps) => {
+  const { classes } = useStyles()
   const voted = userVotes.find(e => e.id === id)
 
   return (
@@ -37,17 +31,13 @@ export const Waffle = ({id, image, title, castVote, user, votes, userVotes}: Waf
         <VoteIcon
           waffleId={id}
           direction="up"
-          castVote={castVote}
-          user={user}
           voted={voted?.vote == 1 || false}
           otherWayVoted={voted?.vote == -1 || false}
         />
-        <Text sx={{minWidth: "1rem" }} align="center">{votes}</Text>
+        <Text className={classes.votes} align="center">{votes}</Text>
         <VoteIcon
           waffleId={id}
           direction="down"
-          castVote={castVote}
-          user={user}
           voted={voted?.vote == -1 || false}
           otherWayVoted={voted?.vote == 1 || false}
         />

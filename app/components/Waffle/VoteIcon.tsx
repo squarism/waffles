@@ -1,12 +1,11 @@
-import { useSubmit } from "@remix-run/react";
+import { useSubmit } from "@remix-run/react"
 import { useState } from 'react'
+
 import { createStyles } from "@mantine/core"
 import clsx from 'clsx'
 import { ArrowBigTop, ArrowBigDown } from 'tabler-icons-react'
 
 import type { SubmitFunction } from "@remix-run/react"
-import type { User } from "@prisma/client"
-import type { VotingFunction } from "~/types/Voting"
 
 const useStyles = createStyles(theme => ({
   clicked: {
@@ -16,13 +15,11 @@ const useStyles = createStyles(theme => ({
   voted: {
     color: "#F2A31B",
   }
-}));
+}))
 
 interface VoteIconProps {
   waffleId: string
   direction: "up" | "down"
-  castVote: VotingFunction
-  user: User | null
   voted: boolean
   otherWayVoted: boolean
 }
@@ -37,8 +34,7 @@ const sendVote = (submit: SubmitFunction, waffleId: string, vote: number, voted:
   submit(formData, {method: "post", action: "/vote"})
 }
 
-// TODO: cleanup user castVote and unused stuff
-export const VoteIcon = ({ waffleId, direction, castVote, user, voted, otherWayVoted }: VoteIconProps) => {
+export const VoteIcon = ({ waffleId, direction, voted, otherWayVoted }: VoteIconProps) => {
   const [clicked, setClick] = useState(false)
   const { classes } = useStyles()
   const submit = useSubmit()

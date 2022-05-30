@@ -1,17 +1,9 @@
 import { Authenticator, AuthorizationError } from "remix-auth"
 import { FormStrategy } from "remix-auth-form"
 import { sessionStorage } from "~/services/session.server"
-// import type { User } from "~/services/session.server"
 
 import type { User } from "~/models/user.server"
 import { verifyLogin } from "~/models/user.server"
-
-// Create an instance of the authenticator, pass a Type, User,  with what
-// strategies will return and will store in the session
-// const authenticator = new Authenticator<User | Error | null>(sessionStorage, {
-//   sessionKey: "sessionKey", // keep in sync
-//   sessionErrorKey: "sessionErrorKey", // keep in sync
-// })
 
 export let authenticator = new Authenticator<User>(sessionStorage)
 
@@ -66,7 +58,6 @@ authenticator.use(
       throw new AuthorizationError("Bad Credentials")
     }
 
-    // return await verifyLogin(email, password)
     return await Promise.resolve({ ...user })
   })
 )

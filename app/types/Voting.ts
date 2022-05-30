@@ -5,9 +5,12 @@ export type VotingFunction = (
   vote: number
 ) => void
 
+export type VoteCounts = {
+  id: string
+  votes: number
+}[]
+
 export type UserVotes = {
   id: string
   vote: number
 }[]
-
-// (user: User|null, waffleId: string, vote: number) => void

@@ -1,8 +1,9 @@
 import { createStyles, Grid, Header as MantineHeader, MediaQuery, Title, Tooltip } from '@mantine/core'
 import { Link } from "@remix-run/react"
 import WaffleLogo from '../WaffleLogo'
-import type { User } from "~/services/session.server"
 import { UserCircle as UserIcon } from 'tabler-icons-react'
+
+import type { User } from "~/services/session.server"
 
 const useStyles = createStyles((theme) => ({
   grid: {

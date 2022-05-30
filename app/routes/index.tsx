@@ -7,12 +7,11 @@ import { Waffle } from "~/components/Waffle"
 
 import authenticator from "~/services/auth.server"
 import { getWaffles } from "~/models/waffle.server"
-import type { Waffle as WaffleType } from "~/models/waffle.server"
 import { voteTotals, userVotes } from "~/components/Waffle/helpers"
-import type { UserVotes } from "~/types/Voting"
 
-// TODO: make a type so that
-// votes={waffle._count.votes} is not mad
+import type { User } from "~/services/session.server"
+import type { Waffle as WaffleType } from "~/models/waffle.server"
+import type { UserVotes, VoteCounts } from "~/types/Voting"
 
 const useStyles = createStyles((theme) => ({
   main: {
@@ -36,11 +35,18 @@ const useStyles = createStyles((theme) => ({
   }
 }))
 
+type LoaderData = {
+  user: User | null
+  waffles: WaffleType[]
+  voteCounts: VoteCounts
+  userVoted: UserVotes
+}
+
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request)
   const waffles = await getWaffles()
 
-  const voteCounts = voteTotals(waffles)
+  const voteCounts: VoteCounts = voteTotals(waffles)
   let userVoted: UserVotes = []
   if (user) userVoted = userVotes(user.id, waffles)
   return { user, waffles, voteCounts, userVoted }
@@ -48,7 +54,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Index() {
   const { classes } = useStyles()
-  const { user, waffles, voteCounts, userVoted } = useLoaderData()
+  const { user, waffles, voteCounts, userVoted } = useLoaderData<LoaderData>()
 
   return (
     <Container className={classes.main}>
@@ -61,8 +67,6 @@ export default function Index() {
               id={waffle.id}
               image={`/${waffle.image}`}
               title={waffle.name}
-              castVote={() => console.log("nothing")}
-              user={user}
               votes={voteCounts.filter(e => e.id === waffle.id)[0].votes}
               userVotes={userVoted}
             />
