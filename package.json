@@ -24,8 +24,6 @@
     "test:e2e:run": "cross-env PORT=8811 start-server-and-test start:mocks http://localhost:8811 \"cypress run\"",
     "typecheck": "tsc -b && tsc -b cypress",
     "validate": "run-p \"test -- --run\" lint typecheck test:e2e:run",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
     "shell": "NODE_ENV=development node"
   },
   "prettier": {
@@ -63,12 +61,6 @@
     "@faker-js/faker": "^6.1.1",
     "@remix-run/dev": "^1.4.3",
     "@remix-run/eslint-config": "^1.4.3",
-    "@storybook/addon-actions": "^6.4.22",
-    "@storybook/addon-essentials": "^6.4.22",
-    "@storybook/addon-interactions": "^6.4.22",
-    "@storybook/addon-links": "^6.4.22",
-    "@storybook/react": "^6.4.22",
-    "@storybook/testing-library": "^0.0.11",
     "@testing-library/cypress": "^8.0.2",
     "@testing-library/dom": "^8.12.0",
     "@testing-library/jest-dom": "^5.16.3",
