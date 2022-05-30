@@ -54,20 +54,6 @@ export default function Index() {
     <Container className={classes.main}>
       <Header user={user} />
 
-      {/* <pre>
-        {JSON.stringify(waffles, null, 2)}
-      </pre> */}
-
-      <pre>
-        total vote counts
-        {JSON.stringify(voteCounts, null, 2)}
-      </pre>
-
-      <pre>
-        user votes
-        {JSON.stringify(userVoted, null, 2)}
-      </pre>
-
       <Grid columns={3} className={classes.waffles}>
         {waffles.map((waffle: WaffleType) => (
           <Grid.Col key={waffle.id} sm={1} xs={3}>

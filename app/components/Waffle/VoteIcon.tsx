@@ -2,7 +2,6 @@ import { useSubmit } from "@remix-run/react";
 import { useState } from 'react'
 import { createStyles } from "@mantine/core"
 import clsx from 'clsx'
-import { Text } from '@mantine/core'
 import { ArrowBigTop, ArrowBigDown } from 'tabler-icons-react'
 
 import type { SubmitFunction } from "@remix-run/react"
@@ -22,7 +21,6 @@ const useStyles = createStyles(theme => ({
 interface VoteIconProps {
   waffleId: string
   direction: "up" | "down"
-  votes: number
   castVote: VotingFunction
   user: User | null
   voted: boolean
@@ -40,13 +38,13 @@ const sendVote = (submit: SubmitFunction, waffleId: string, vote: number, voted:
 }
 
 // TODO: cleanup user castVote and unused stuff
-export const VoteIcon = ({ waffleId, direction, votes, castVote, user, voted, otherWayVoted }: VoteIconProps) => {
+export const VoteIcon = ({ waffleId, direction, castVote, user, voted, otherWayVoted }: VoteIconProps) => {
   const [clicked, setClick] = useState(false)
   const { classes } = useStyles()
   const submit = useSubmit()
 
   return (
-    <div style={{ minWidth: "20px", width: "50px" }}>
+    <>
       {direction === "up" ?
         <ArrowBigTop
           onMouseDown={(e) => {
@@ -70,9 +68,6 @@ export const VoteIcon = ({ waffleId, direction, votes, castVote, user, voted, ot
           className={clsx(clicked && classes.clicked, voted && classes.voted)}
         />
       }
-      <Text align="left" sx={{ display: "inline", position: "relative", top: "-6px", left: "4px" }}>
-        {votes}
-      </Text>
-    </div>
+    </>
   )
 }

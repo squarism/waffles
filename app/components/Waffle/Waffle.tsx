@@ -1,5 +1,5 @@
 import { createStyles } from "@mantine/core";
-import { Card, Image, Title, Group } from '@mantine/core';
+import { Card, Image, Text, Title, Group } from '@mantine/core';
 
 import { VoteIcon } from "./VoteIcon";
 
@@ -31,38 +31,26 @@ export const Waffle = ({id, image, title, castVote, user, votes, userVotes}: Waf
 
   return (
     <Card shadow="xs" p="sm">
-      <Image
-        src={image}
-        alt="waffle"
-        radius="md"
-      />
-      <Title order={3} align="center">
-        {title}
-      </Title>
-
-      <Group spacing="xs" noWrap position="center">
-        <span style={{ borderRight: "2px solid #ccc", paddingRight: "10px" }}>
-          <VoteIcon
-            waffleId={id}
-            direction="up"
-            votes={votes}
-            castVote={castVote}
-            user={user}
-            voted={voted?.vote == 1 || false}
-            otherWayVoted={voted?.vote == -1 || false}
-          />
-        </span>
-        <span>
-          <VoteIcon
-            waffleId={id}
-            direction="down"
-            votes={0}
-            castVote={castVote}
-            user={user}
-            voted={voted?.vote == -1 || false}
-            otherWayVoted={voted?.vote == 1 || false}
-          />
-        </span>
+      <Image src={image} alt="waffle" radius="md" />
+      <Title order={3} align="center">{title}</Title>
+      <Group spacing="md" noWrap position="center">
+        <VoteIcon
+          waffleId={id}
+          direction="up"
+          castVote={castVote}
+          user={user}
+          voted={voted?.vote == 1 || false}
+          otherWayVoted={voted?.vote == -1 || false}
+        />
+        <Text sx={{minWidth: "1rem" }} align="center">{votes}</Text>
+        <VoteIcon
+          waffleId={id}
+          direction="down"
+          castVote={castVote}
+          user={user}
+          voted={voted?.vote == -1 || false}
+          otherWayVoted={voted?.vote == 1 || false}
+        />
       </Group>
     </Card>
   )
