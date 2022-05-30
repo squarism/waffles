@@ -1,7 +1,7 @@
 # Waffle Voting
 
-![home](linktbd)
-![sign in](linktbd)
+![[home|width=200px]](https://github.com/squarism/waffles/raw/images/screenshots/home.png)
+![[sign in|width=200px]](https://github.com/squarism/waffles/raw/images/screenshots/login.png)
 
 
 ## Purpose
@@ -10,6 +10,7 @@ It's a learning project for Remix.  Features and goals:
 
 - Realistic Authentication
 - Simple database model and relations
+- Unique constraint on voting, security check on voting
 - Integrate a CSS library (Mantine)
 - Voting system
 
@@ -24,6 +25,7 @@ It's a learning project for Remix.  Features and goals:
 
 ## Development
 
+Local user is `someone@example.com` with password `password`.  This is in [the seeds file](prisma/seed.ts).  Sign up is not implemented.
 
 ```
 # create an .env file with
