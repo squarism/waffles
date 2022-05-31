@@ -1,7 +1,17 @@
 # Waffle Voting
 
-![[home|width=200px]](https://github.com/squarism/waffles/raw/images/screenshots/home.png)
-![[sign in|width=200px]](https://github.com/squarism/waffles/raw/images/screenshots/login.png)
+## Home Page
+
+You can only vote once per waffle.  The `-2` shown here is two `-1` votes by two users.  If you vote the other way it will recall your vote and vote again etc.  You can click an arrow to recall your vote.  It's basically reddit style.
+
+<img src="https://github.com/squarism/waffles/raw/images/screenshots/home.png" width="60%" />
+
+
+## Auth
+
+Uses [remix-auth](https://github.com/sergiodxa/remix-auth) as well as some other code and ideas from others.  Sign up is not implemented.
+
+<img src="https://github.com/squarism/waffles/raw/images/screenshots/login.png" width="40%" />
 
 
 ## Purpose
@@ -20,12 +30,12 @@ It's a learning project for Remix.  Features and goals:
 - Remix
 - Mantine
 - Postgres + Prisma
-- (not storybook, [it doesn't work yet](https://github.com/remix-run/remix/discussions/2481), this statement will likely bitrot)
+- (sadly no storybook, [it doesn't work yet](https://github.com/remix-run/remix/discussions/2481), this statement will likely bitrot)
 
 
 ## Development
 
-Local user is `someone@example.com` with password `password`.  This is in [the seeds file](prisma/seed.ts).  Sign up is not implemented.
+Local user is `someone@example.com` with password `password`.  This is in [the seeds file](prisma/seed.ts).
 
 ```
 # create an .env file with
