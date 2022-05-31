@@ -20,6 +20,7 @@ export const action: ActionFunction = async ({ request, context }) => {
   return res
 }
 
+// this handles if a user is already logged in and mysteriously navigates to login
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticator.isAuthenticated(request, {
     successRedirect: '/',

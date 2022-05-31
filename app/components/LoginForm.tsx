@@ -1,11 +1,10 @@
-import { Form, Link } from '@remix-run/react'
+import { Form } from '@remix-run/react'
 import {
   Stack,
   TextInput,
   PasswordInput,
   Button,
   Text,
-  Anchor,
 } from '@mantine/core'
 import { At, Lock, Login } from 'tabler-icons-react'
 import type { FC } from 'react'
@@ -41,12 +40,6 @@ const LoginForm: FC<Props> = ({ loaderData }) => {
         <Button type='submit' rightIcon={<Login size={18} />}>
           Log In
         </Button>
-        <Text align='center'>
-          Don't have an account?{' '}
-          <Anchor component={Link} to='/signup'>
-            Sign Up.
-          </Anchor>
-        </Text>
       </Stack>
     </Form>
   )

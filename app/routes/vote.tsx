@@ -7,8 +7,7 @@ import authenticator from '~/services/auth.server'
 export const action: ActionFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request)
   if (!user) {
-    console.log("HACKERS!!!")
-    return { hacker: true }
+    return redirect('/login')
   } else {
     const body = await request.formData()
     const vote = parseInt(body._fields.vote[0])
